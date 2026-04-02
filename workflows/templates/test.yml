@@ -1,0 +1,34 @@
+name: "template - test"
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
+    outputs:
+      test-status:
+        description: "Estado de las pruebas"
+        value: ${{ jobs.test_job.outputs.test-status }}
+
+jobs:
+  test_job:
+    runs-on: ubuntu-latest
+    outputs:
+      test-status: ${{ steps.set_status.outputs.status }}
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: install & build
+      run: npm install
+    - name: Run test
+      run: npm test
+    - name: set_status
+      id: set_status
+      run: echo "status=success" >> $GITHUB_OUTPUT

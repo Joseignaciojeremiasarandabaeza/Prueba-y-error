@@ -1,0 +1,34 @@
+name: "template - build"
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
+    outputs:
+      artifact-name:
+        description: "Nombre del artefacto creado"
+        value: ${{ jobs.build.outputs.out-name }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      out-name: ${{ steps.build_step.outputs.resultado }}
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: install & build
+      run: |
+        npm install
+        npm run build
+    - name: Generar salida para TechMarket
+      id: build_step
+      run: echo "resultado=app-build" >> $GITHUB_OUTPUT

@@ -1,0 +1,42 @@
+name: "template - deploy"
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+        description: "Entorno de destino (dev, staging, prod)"
+    secrets:
+      aws-access-key-id:
+        required: true
+      aws-secret-access-key:
+        required: true
+      aws-session-token:
+        required: true
+
+jobs:
+  deploy_job:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.aws-access-key-id }}
+        aws-secret-access-key: ${{ secrets.aws-secret-access-key }}
+        aws-session-token: ${{ secrets.aws-session-token }}
+        aws-region: us-east-1
+
+    - name: Deploy to S3
+      run: |
+        echo "Desplegando en el entorno: ${{ inputs.environment }}"
+        aws s3 sync ./dist s3://mi-bucket-techmarket-${{ inputs.environment }}
+
+    - name: Terraform Apply
+      run: |
+        terraform init
+        terraform apply -var="environment=${{ inputs.environment }}" -auto-approve
