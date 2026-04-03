@@ -9,19 +9,19 @@ on:
 jobs:
 
   job-build:
-    uses: ./.github/workflows/templates/build.yml
+    uses: ./.github/workflows/build.yml
     with:
       node-version: "20"
 
   job-test:
     needs: job-build
-    uses: ./.github/workflows/templates/test.yml
+    uses: ./.github/workflows/test.yml
     with:
       node-version: "20"
 
   job-deploy:
     needs: job-test
-    uses: ./.github/workflows/templates/deploy.yml
+    uses: ./.github/workflows/deploy.yml
     with:
       environment: "Production"
     secrets:
