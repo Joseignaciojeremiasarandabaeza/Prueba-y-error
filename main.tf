@@ -25,7 +25,7 @@ resource "aws_s3_bucket" "techmarket_app_bucket" {
 # 4. Infraestructura: Instancia EC2 (Capa Gratuita)
 # Usamos un recurso sencillo para validar que el despliegue funciona
 resource "aws_instance" "techmarket_server" {
-  ami           = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 en us-east-1
+  ami           = "ami-01b14b7ad41e17ba4" # Amazon Linux 2 en us-east-1
   instance_type = "t2.micro"             # Free Tier
 
   tags = {
