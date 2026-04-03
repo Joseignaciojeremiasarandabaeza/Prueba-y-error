@@ -30,7 +30,12 @@ jobs:
         aws-secret-access-key: ${{ secrets.aws-secret-access-key }}
         aws-session-token: ${{ secrets.aws-session-token }}
         aws-region: us-east-1
-
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.7.0" # O la versión que prefieras
+        terraform_wrapper: false
+        
     - name: Terraform Apply
       run: |
         terraform init
