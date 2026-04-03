@@ -13,10 +13,10 @@ variable "environment" {
 # 3. Infraestructura: Bucket S3 para el Frontend
 # El nombre del bucket debe ser único globalmente, por eso usamos el entorno
 resource "aws_s3_bucket" "techmarket_app_bucket" {
-  bucket = "techmarket-app-${lower(var.environment)}-2026" # Nombre dinámico
+  bucket = "techmarket-app-${lower(var.environment)}-20262345764357" # Nombre dinámico
 
   tags = {
-    Name        = "TechMarket-App"
+    Name        = "TechMarket-App1234567234576"
     Environment = var.environment
     ManagedBy   = "Terraform"
   }
