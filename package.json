@@ -1,0 +1,20 @@
+{
+  "name": "prueba-y-error",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joseignaciojeremiasarandabaeza/Prueba-y-error.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joseignaciojeremiasarandabaeza/Prueba-y-error/issues"
+  },
+  "homepage": "https://github.com/Joseignaciojeremiasarandabaeza/Prueba-y-error#readme"
+}
