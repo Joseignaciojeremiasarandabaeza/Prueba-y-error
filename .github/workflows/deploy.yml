@@ -34,7 +34,7 @@ jobs:
     - name: Deploy to S3
       run: |
         echo "Desplegando en el entorno: ${{ inputs.environment }}"
-        aws s3 sync . s3://mi-bucket-techmarket-${{ inputs.environment }}
+        aws s3 sync . s3://mi-bucket-techmarket23155d53w75hd765e7h5d4-${{ inputs.environment }}
 
     - name: Terraform Apply
       run: |
