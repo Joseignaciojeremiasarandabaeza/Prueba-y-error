@@ -4,7 +4,7 @@
   "description": "Proyecto de infraestructura para AWS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No tests defined yet, skipping...\"", 
     "start": "node index.js",
     "build": "echo 'No build step needed'"
   },
