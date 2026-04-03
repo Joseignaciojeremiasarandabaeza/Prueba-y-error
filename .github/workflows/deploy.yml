@@ -36,10 +36,10 @@ jobs:
         terraform_version: "1.7.0" # O la versión que prefieras
         terraform_wrapper: false
         
-    - name: Terraform Apply
+    - name: Terraform Destroy
       run: |
         terraform init
-        terraform apply -var="environment=${{ inputs.environment }}" -auto-approve
+        terraform destroy -var="environment=${{ inputs.environment }}" -auto-approve
 
   
     - name: Obtener nombre del bucket
