@@ -13,10 +13,12 @@ variable "environment" {
 # 3. Infraestructura: Bucket S3 para el Frontend
 # El nombre del bucket debe ser único globalmente, por eso usamos el entorno
 resource "aws_s3_bucket" "techmarket_app_bucket" {
-  bucket = "techmarket-app-${lower(var.environment)}-202623457csgfhvsdzhgjstuey5a4wvtq34aghvwa<w64357" # Nombre dinámico
+  # Nombre ajustado a 63 caracteres exactos (considerando 'production')
+  # Eliminado el caracter '<' que rompe la validación de DNS de S3
+  bucket = "techmarket-app-${lower(var.environment)}-202623457csgfhvsdzhgjstuey5" 
 
   tags = {
-    Name        = "TechMarket-App123456723frgrsgfzgvt4wavtc4cw<t4576"
+    Name        = "TechMarket-App-Resources"
     Environment = var.environment
     ManagedBy   = "Terraform"
   }
