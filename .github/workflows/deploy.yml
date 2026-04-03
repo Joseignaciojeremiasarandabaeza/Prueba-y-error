@@ -31,12 +31,20 @@ jobs:
         aws-session-token: ${{ secrets.aws-session-token }}
         aws-region: us-east-1
 
-    - name: Deploy to S3
-      run: |
-        echo "Desplegando en el entorno: ${{ inputs.environment }}"
-        aws s3 sync . s3://techmarket-app-production-2026 --exclude ".git*"
-
     - name: Terraform Apply
       run: |
         terraform init
         terraform apply -var="environment=${{ inputs.environment }}" -auto-approve
+
+  
+    - name: Obtener nombre del bucket
+      id: get_bucket
+      run: |
+        BUCKET=$(terraform output -raw s3_bucket_name)
+        echo "BUCKET_NAME=$BUCKET" >> $GITHUB_ENV
+       
+    - name: Deploy to S3
+      run: |
+        echo "Desplegando en el entorno: ${{ inputs.environment }}"
+        
+        aws s3 sync . s3://${{ env.BUCKET_NAME }} --exclude ".git*"
