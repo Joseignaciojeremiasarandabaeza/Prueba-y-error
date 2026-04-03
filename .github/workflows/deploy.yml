@@ -30,26 +30,20 @@ jobs:
         aws-secret-access-key: ${{ secrets.aws-secret-access-key }}
         aws-session-token: ${{ secrets.aws-session-token }}
         aws-region: us-east-1
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: "1.7.0" # O la versión que prefieras
+        terraform_version: "1.7.0"
         terraform_wrapper: false
-        
+
+    # 1. Vaciar el bucket manualmente (S3 no deja borrar buckets con archivos)
+    - name: Empty S3 Bucket
+      run: |
+        aws s3 rm s3://techmarket-app-production-202623457csgfhvsdzhgjstuey9z --recursive || echo "Bucket no encontrado o ya vacío"
+
+    # 2. Ejecutar la destrucción total
     - name: Terraform Destroy
       run: |
         terraform init
         terraform destroy -var="environment=${{ inputs.environment }}" -auto-approve
-
-  
-    - name: Obtener nombre del bucket
-      id: get_bucket
-      run: |
-        BUCKET=$(terraform output -raw s3_bucket_name)
-        echo "BUCKET_NAME=$BUCKET" >> $GITHUB_ENV
-       
-    - name: Deploy to S3
-      run: |
-        echo "Desplegando en el entorno: ${{ inputs.environment }}"
-        
-        aws s3 sync . s3://${{ env.BUCKET_NAME }} --exclude ".git*"
