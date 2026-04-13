@@ -1,0 +1,26 @@
+name: Test Template
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Instalar dependencias
+        run: echo "Instalando dependencias para pruebas (simulado)..."
+
+      - name: Ejecutar pruebas
+        run: echo "Ejecutando pruebas (simulado)..."

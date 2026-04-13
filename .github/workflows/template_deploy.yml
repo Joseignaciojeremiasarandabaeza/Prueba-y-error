@@ -1,0 +1,21 @@
+name: Deploy Template
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar credenciales AWS (simulado)
+        run: echo "Simulando credenciales AWS..."
+
+      - name: Desplegar infraestructura (simulado)
+        run: echo "Desplegando en ${{ inputs.environment }} (simulación)"
